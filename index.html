@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pastel do Jordão - Monte seu Pastel</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; color: #333; }
+        header { background: #e74c3c; color: white; padding: 20px; text-align: center; border-bottom: 5px solid #f1c40f; }
+        .container { width: 95%; max-width: 500px; margin: 20px auto; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h2 { color: #c0392b; font-size: 1.3em; margin-top: 20px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+        .instrucao { font-style: italic; color: #666; font-size: 0.9em; }
+        
+        input[type="text"] { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
+        
+        label { display: block; padding: 12px; background: #fffdf0; margin-bottom: 8px; border-radius: 10px; cursor: pointer; border: 1px solid #f1c40f55; transition: 0.2s; }
+        label:hover { background: #f1c40f22; }
+        
+        input[type="checkbox"], input[type="radio"] { margin-right: 15px; transform: scale(1.3); }
+        
+        .valor-adicional { color: #27ae60; font-weight: bold; float: right; }
+        
+        .btn-send { background: #27ae60; color: white; border: none; width: 100%; padding: 20px; font-size: 1.2em; font-weight: bold; border-radius: 10px; cursor: pointer; margin-top: 30px; box-shadow: 0 4px 0 #1e8449; }
+        .btn-send:active { transform: translateY(4px); box-shadow: none; }
+        
+        footer { text-align: center; padding: 20px; font-size: 0.8em; color: #888; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Pastel do Jordão</h1>
+    <p>O melhor sabor do Jardim Jordão!</p>
+</header>
+
+<div class="container">
+    <form id="pedidoForm">
+        <div class="section">
+            <h2>Seus Dados</h2>
+            <input type="text" id="nome" placeholder="Seu Nome" required>
+            <input type="text" id="endereco" placeholder="Endereço de Entrega (Rua, Número, Referência)" required>
+        </div>
+
+        <div class="section">
+            <h2>1. Escolha seus Recheios Base</h2>
+            <p class="instrucao">Selecione uma ou mais opções:</p>
+            <label><input type="checkbox" name="recheio" value="Carne Moída"> Carne Moída</label>
+            <label><input type="checkbox" name="recheio" value="Calabresa"> Calabresa</label>
+            <label><input type="checkbox" name="recheio" value="Carne de Sol"> Carne de Sol</label>
+            <label><input type="checkbox" name="recheio" value="Charque"> Charque</label>
+            <label><input type="checkbox" name="recheio" value="Frango"> Frango</label>
+            <label><input type="checkbox" name="recheio" value="Presunto"> Presunto</label>
+            <label><input type="checkbox" name="recheio" value="Queijo Muçarela"> Queijo Muçarela</label>
+        </div>
+
+        <div class="section">
+            <h2>2. Adicional Especial</h2>
+            <label>
+                <input type="checkbox" name="extra" value="Creme de Camarão"> Creme de Camarão
+                <span class="valor-adicional">+ R$ 3,00</span>
+            </label>
+        </div>
+
+        <div class="section">
+            <h2>3. Observações?</h2>
+            <input type="text" id="obs" placeholder="Ex: Sem cebola, bem frito, etc.">
+        </div>
+
+        <a href="https://wa.me/qr/QANHZUVRLDRYF1" target="_blank" style="text-decoration:none;">
+    <button class="btn-send" style="background:#25D366; margin-top:10px;">
+        PEDIR PELO WHATSAPP
+    </button>
+</a> 
+</div>
+
+<footer>
+    <p>📍 Av. Gonçalves Dias, 186 - Jardim Jordão</p>
+    <p>📞 WhatsApp: (81) 99163-5953</p>
+</footer>
+
+<script>
+    function enviarPedido() {
+        const nome = document.getElementById('nome').value;
+        const endereco = document.getElementById('endereco').value;
+        const obs = document.getElementById('obs').value;
+        
+        if(!nome || !endereco) {
+            alert("Por favor, preencha seu nome e endereço!");
+            return;
+        }
+
+        let recheios = [];
+        document.querySelectorAll('input[name="recheio"]:checked').forEach((el) => recheios.push(el.value));
+        
+        let extras = [];
+        document.querySelectorAll('input[name="extra"]:checked').forEach((el) => extras.push(el.value));
+
+        if(recheios.length === 0 && extras.length === 0) {
+            alert("Escolha pelo menos um recheio!");
+            return;
+        }
+
+        let mensagem = *NOVO PEDIDO - PASTEL DO JORDÃO*%0A%0A;
+        mensagem += *Cliente:* ${nome}%0A;
+        mensagem += *Endereço:* ${endereco}%0A%0A;
+        mensagem += *RECHEIOS SELECIONADOS:*%0A- ${recheios.join('%0A- ') || 'Nenhum'}%0A;
+        
+        if(extras.length > 0) {
+            mensagem += %0A*ADICIONAIS:*%0A- ${extras.join('%0A- ')}%0A;
+        }
+
+        if(obs) {
+            mensagem += %0A*OBSERVAÇÃO:* ${obs}%0A;
+        }
+
+        const fone = "5581991635953";
+        window.open(https://wa.me/${fone}?text=${mensagem}, '_blank');
+    }
+</script>
+
+</body>
+</html>
